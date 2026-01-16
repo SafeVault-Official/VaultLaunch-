@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SafeVault Protocol - Presale</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #121212; color: white; }
+        .card { border: 1px solid #333; padding: 20px; margin: 50px auto; width: 300px; border-radius: 15px; }
+        button { background: #f3ba2f; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>SafeVault Presale</h2>
+        <p>1 BNB = 1,000,000 SAFE</p>
+        <button onclick="connectWallet()">Connect Wallet</button>
+        <hr>
+        <input type="number" id="amount" placeholder="BNB Amount" style="width: 80%;">
+        <br><br>
+        <button onclick="buyTokens()">Buy Tokens</button>
+    </div>
+
+    <script>
+        let web3;
+        async function connectWallet() {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                await window.ethereum.enable();
+                alert("Cüzdan Bağlandı!");
+            } else { alert("Lütfen Metamask kurun!"); }
+        }
+
+        async function buyTokens() {
+            const amount = document.getElementById('amount').value;
+            const weiAmount = web3.utils.toWei(amount, 'ether');
+            const accounts = await web3.eth.getAccounts();
+            
+            // BURAYA SENİN SATIŞ KONTRAT ADRESİN GELECEK
+            web3.eth.sendTransaction({
+                from: accounts[0],
+                to: 'SENIN_CUZDAN_VEYA_KONTRAT_ADRESIN',
+                value: weiAmount
+            });
+        }
+    </script>
+</body>
+</html>
